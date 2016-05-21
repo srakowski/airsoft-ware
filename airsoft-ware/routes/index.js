@@ -14,7 +14,12 @@ router.get('/', function(req, res, next) {
     if (point == null) {
       res.render('playing', { game: game })      
     } else {
-      res.render('point', { point: point, teams: game.teams});
+      var color = "#FFF";
+      if (point.team !== null) {
+        color = point.team.color;        
+      }
+      
+      res.render('point', { color: color,  point: point, teams: game.teams});
     }    
   } else {
     res.render('pointsetup', { points: game.points });    
@@ -23,8 +28,8 @@ router.get('/', function(req, res, next) {
 
 router.post("/setup", function (req, res, next) {
   game = new Game();
-  game.addTeam(req.body.team1_name);
-  game.addTeam(req.body.team2_name);
+  game.addTeam(req.body.team1_name, "#F00");
+  game.addTeam(req.body.team2_name, "#00F");
   game.setDuration(Number(req.body.round_duration) * 60000); 
   res.redirect("/");    
 });

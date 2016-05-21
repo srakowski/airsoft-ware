@@ -9,6 +9,9 @@ block content
   h2 Capture Points:
   ul
     each point in game.points
-        li #{point.name} (#{point.ip}) - #{point.getOwnerName()}
+        li 
+            span(style="background-color:#{point.getOwnerColor()};color:#{point.getOwnerColor()};") [--]
+            |  #{point.name} (#{point.ip})              
+            | - #{point.getOwnerName()}
         
   script(src="/javascripts/playing.js")        

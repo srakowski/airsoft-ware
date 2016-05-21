@@ -2,7 +2,7 @@ function Point(ip, name) {
     var self = this;
     self.ip = ip;    
     self.name = name;    
-    self.team = null;
+    self.team = null;    
     
     self.getOwnerName = function () {
         if (self.team == null) {
@@ -10,6 +10,14 @@ function Point(ip, name) {
         }
         
         return self.team.name;
+    }
+    
+    self.getOwnerColor = function () {
+        if (self.team == null) {
+            return "#FFF";
+        }
+        
+        return self.team.color;
     }
     
     self.capture = function (team) {
@@ -24,10 +32,11 @@ function Point(ip, name) {
     }
 }
 
-function Team(name) {
+function Team(name, color) {
     var self = this;
     self.name = name;    
     self.score = 0;
+    self.color = color;
     self.awardPoints = function () {
         self.score++;
     }
@@ -44,8 +53,8 @@ function Game() {
     }
     
     self.teams = {};
-    self.addTeam = function (teamName) {
-        self.teams[teamName] = new Team(teamName);        
+    self.addTeam = function (teamName, color) {
+        self.teams[teamName] = new Team(teamName, color);        
     }
     
     self.getTeam = function (teamName) {
