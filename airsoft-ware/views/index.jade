@@ -2,11 +2,12 @@ extends layout
 
 block content
   h1 Airsoft-ware
-  form(method="post", action="/play")
+  form(method="post", action="/setup")
     p
       label Round Duration
       br
-      input(name="round_duration", type="number")
+      input(name="round_duration", type="number") 
+      |  (minutes)
     p
       label Team 1 Name
       br
@@ -16,6 +17,6 @@ block content
       br
       input(name="team2_name", type="text")            
     p
-      button(type="submit") Play
+      button(type="submit") Get Started
         
           

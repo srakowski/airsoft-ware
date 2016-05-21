@@ -8,8 +8,7 @@ var game = null;
 router.get('/', function(req, res, next) {
   if (game == null) {  
     res.render('index');
-  } else {
-    
+  } else if (game.isActive) {    
     var ip = req.connection.remoteAddress;
     var point = game.getPoint(ip);
     if (point == null) {
@@ -17,24 +16,28 @@ router.get('/', function(req, res, next) {
     } else {
       res.render('point', { point: point, teams: game.teams});
     }    
+  } else {
+    res.render('pointsetup', { points: game.points });    
   }
 });
 
-router.post('/play', function name(req, res, next) {
+router.post("/setup", function (req, res, next) {
   game = new Game();
   game.addTeam(req.body.team1_name);
-  game.addTeam(req.body.team2_name);  
-  setTimeout(function () {    
-    game = null;       
-  }, Number(req.body.round_duration));
-  res.redirect("/");
+  game.addTeam(req.body.team2_name);
+  game.setDuration(Number(req.body.round_duration) * 60000); 
+  res.redirect("/");    
+});
+
+router.post('/play', function name(req, res, next) {  
+  game.startGame();  
+  res.redirect('/');
 });
 
 router.get('/registerpoint', function (req, res, next) {
   if (game == null) {
     res.redirect("/");
-  }   
-    
+  }       
   res.render('registerpoint');          
 });
 

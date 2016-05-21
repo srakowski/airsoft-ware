@@ -5,8 +5,10 @@ block content
   h2 Teams:
   ul
     each team in game.teams  
-        li=team.name
+        li #{team.name} - #{team.score} 
   h2 Capture Points:
   ul
     each point in game.points
-        li #{point.name} (#{point.ip})
+        li #{point.name} (#{point.ip}) - #{point.getOwnerName()}
+        
+  script(src="/javascripts/playing.js")        

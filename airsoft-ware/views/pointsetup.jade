@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Set Up Capture Points
+  h2 Registered Capture Points:
+  ul
+    each point in points
+        li #{point.name} (#{point.ip})
+    li
+        a(href="/registerpoint") Register This Address
+  form(method="post", action="/play")
+    button(type="submit") PLAY!
