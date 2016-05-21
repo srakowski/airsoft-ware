@@ -9,7 +9,14 @@ router.get('/', function(req, res, next) {
   if (game == null) {  
     res.render('index');
   } else {
-    res.render('playing', { game: game })
+    
+    var ip = req.connection.remoteAddress;
+    var point = game.getPoint(ip);
+    if (point == null) {
+      res.render('playing', { game: game })      
+    } else {
+      res.render('point', { point: point, teams: game.teams});
+    }    
   }
 });
 
@@ -39,6 +46,17 @@ router.post('/registerpoint', function (req, res, next) {
   var ip = req.connection.remoteAddress;
   game.registerPoint(ip, req.body.name);  
   res.redirect("/");        
+});
+
+router.post("/capture", function (req, res, next) {
+    if (game == null) {
+      res.redirect("/");
+    }   
+        
+    var ip = req.connection.remoteAddress;
+    var point = game.getPoint(ip);
+    point.capture(game.getTeam(req.body.team_name));    
+    res.redirect("/");          
 });
 
 module.exports = router;

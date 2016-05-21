@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 Capture Point #{point.name} (#{point.ip})
+  if point.team !== null
+    h1 This point is controlled by: #{point.team.name}
+    each team in teams
+      if team.name !== point.team.name
+        form(action="/capture", method="post")
+            input(name="team_name", type="hidden", value="#{team.name}")
+            button(type="submit") CAPTURE #{team.name}
+        br    
+  else
+    h1 This point is uncontrolled
+    each team in teams    
+        form(action="/capture", method="post")
+            input(name="team_name", type="hidden", value="#{team.name}")
+            button(type="submit") CAPTURE #{team.name}
+        br
+                           
