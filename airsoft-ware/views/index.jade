@@ -5,8 +5,16 @@ block content
   form(method="post", action="/play")
     p
       label Round Duration
-    p
+      br
       input(name="round_duration", type="number")
+    p
+      label Team 1 Name
+      br
+      input(name="team1_name", type="text")
+    p      
+      label Team 2 Name
+      br
+      input(name="team2_name", type="text")            
     p
       button(type="submit") Play
         

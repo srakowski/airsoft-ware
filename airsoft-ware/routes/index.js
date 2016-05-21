@@ -14,7 +14,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/play', function name(req, res, next) {
-  game = new Game();  
+  game = new Game();
+  game.addTeam(req.body.team1_name);
+  game.addTeam(req.body.team2_name);  
   setTimeout(function () {    
     game = null;       
   }, Number(req.body.round_duration));

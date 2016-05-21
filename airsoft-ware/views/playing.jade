@@ -2,7 +2,11 @@ extends layout
 
 block content
   h1 A game is in progress
+  h2 Teams:
+  ul
+    each team in game.teams  
+        li=team.name
   h2 Capture Points:
   ul
-    each val in game.points
-        li #{val.name} (#{val.ip})
+    each point in game.points
+        li #{point.name} (#{point.ip})
