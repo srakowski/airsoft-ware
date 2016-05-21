@@ -1,12 +1,12 @@
 extends layout
 
 block content
-  h1 A game is in progress
+  h1 A game is in progress - #{Math.trunc((game.getRemainingTime()/60000) * 100)/100} minutes remaining
   h2 Teams:
   ul
     each team in game.teams  
         li #{team.name} - #{team.score} 
-  h2 Capture Points:
+  h2 Held Points:
   ul
     each point in game.points
         li 

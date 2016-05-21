@@ -3,11 +3,12 @@ var router = express.Router();
 var Game = require('../models/game');
 
 var game = null;
+var previousGame = null;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (game == null) {  
-    res.render('index');
+    res.render('index', {previousGame: previousGame});
   } else if (game.isActive) {    
     var ip = req.connection.remoteAddress;
     var point = game.getPoint(ip);
@@ -27,7 +28,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/setup", function (req, res, next) {
-  game = new Game();
+  game = new Game(function () {
+    previousGame = game;
+    game = null;    
+  });
   game.addTeam(req.body.team1_name, "#F00");
   game.addTeam(req.body.team2_name, "#00F");
   game.setDuration(Number(req.body.round_duration) * 60000); 

@@ -1,7 +1,8 @@
 extends layout
 
 block content
-  h1 Airsoft-ware
+  h1 AIRSOFT-WARE
+  h2 New Game
   form(method="post", action="/setup")
     p
       label Round Duration
@@ -18,5 +19,11 @@ block content
       input(name="team2_name", type="text")            
     p
       button(type="submit") Get Started
-        
+  if previousGame !== null      
+    h2 Previous Game
+    p Final Scores:
+    ul
+      each team in previousGame.teams  
+          li #{team.name} - #{team.score} 
+          
           

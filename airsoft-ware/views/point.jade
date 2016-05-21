@@ -9,13 +9,17 @@ block content
       if team.name !== point.team.name
         form(action="/capture", method="post")
             input(name="team_name", type="hidden", value="#{team.name}")
-            button(type="submit") CAPTURE FOR TEAM #{team.name}
+            button(type="submit")
+              span(style="background-color:#{team.color};color:#{team.color};") [--]              
+              |   CAPTURE FOR TEAM #{team.name}
         br    
   else
     h1 THIS POINT HAS NOT BEEN CAPTURED
     each team in teams    
         form(action="/capture", method="post")
             input(name="team_name", type="hidden", value="#{team.name}")
-            button(type="submit") CAPTURE FOR TEAM #{team.name}
+            button(type="submit")
+              span(style="background-color:#{team.color};color:#{team.color};") [--]  
+              |   CAPTURE FOR TEAM #{team.name}
         br
                            

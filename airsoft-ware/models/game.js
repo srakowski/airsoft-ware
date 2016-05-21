@@ -42,11 +42,13 @@ function Team(name, color) {
     }
 }
 
-function Game() {        
+function Game(onDone) {        
     var self = this;
     self.isActive = false;
     self.duration = 0;
     self.updateInterval = null;
+    self.startedAt = null;
+    self.onDone = onDone;
     
     self.setDuration = function (duration) {
         self.duration = duration;
@@ -77,6 +79,7 @@ function Game() {
     self.startGame = function () {
         console.log("game is starting, duration=" + self.duration);
         self.isActive = true;
+        self.startedAt = (new Date()).getTime();
         self.updateInterval = setInterval(function () {
             for (var key in self.points) {
               self.points[key].update();  
@@ -84,14 +87,19 @@ function Game() {
         }, 1000);
         setTimeout(function () {                        
             self.endGame();
-        }, self.duration);        
+        }, self.duration);                
     };   
     
     self.endGame = function () {
         clearInterval(self.updateInterval);
         self.updateInterval = null;        
         self.isActive = false;
+        onDone();
     };
+    
+    self.getRemainingTime = function () {
+        return self.duration - ((new Date()).getTime() - self.startedAt);
+    }
 };
 
 module.exports = Game
