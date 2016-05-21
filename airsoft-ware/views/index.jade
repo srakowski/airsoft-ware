@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 Airsoft-ware
+  form(method="post", action="/play")
+    p
+      label Round Duration
+    p
+      input(name="round_duration", type="number")
+    p
+      button(type="submit") Play
+        
+          
