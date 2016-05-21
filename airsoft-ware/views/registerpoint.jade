@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 Airsoft-ware | Register Point
+  p Register a device as a capture point.    
+  form(method="post", action="/registerpoint")
+    p
+        label Capture Point Name
+    p
+        input(name="name", type="text")                
+    p
+        button(type="submit") Register        
+          

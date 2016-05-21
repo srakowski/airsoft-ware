@@ -1,23 +1,42 @@
 var express = require('express');
 var router = express.Router();
+var Game = require('../models/game');
 
-var gameInProgress = false;
+var game = null;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  if (!gameInProgress) {  
+  if (game == null) {  
     res.render('index');
   } else {
-    res.render('playing')
+    res.render('playing', { game: game })
   }
 });
 
 router.post('/play', function name(req, res, next) {
-  gameInProgress = true;  
+  game = new Game();  
   setTimeout(function () {    
-    gameInProgress = false;       
+    game = null;       
   }, Number(req.body.round_duration));
   res.redirect("/");
+});
+
+router.get('/registerpoint', function (req, res, next) {
+  if (game == null) {
+    res.redirect("/");
+  }   
+    
+  res.render('registerpoint');          
+});
+
+router.post('/registerpoint', function (req, res, next) {
+    if (game == null) {
+    res.redirect("/");
+  }   
+    
+  var ip = req.connection.remoteAddress;
+  game.registerPoint(ip, req.body.name);  
+  res.redirect("/");        
 });
 
 module.exports = router;
